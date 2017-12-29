@@ -3,13 +3,13 @@ import datetime, sqlite3, time
 
 # Set location
 location="room"
-countNum=4
+countNum=5
 
 # Create database
 conn=sqlite3.connect('signal_strengths.db')
 curr=conn.cursor()
-curr.execute("DROP TABLE IF EXISTS signals")
-curr.execute("DROP TABLE IF EXISTS lookups")
+# curr.execute("DROP TABLE IF EXISTS signals")
+# curr.execute("DROP TABLE IF EXISTS lookups")
 curr.execute("CREATE TABLE IF NOT EXISTS signals(collected TEXT, location TEXT)")
 curr.execute("CREATE TABLE IF NOT EXISTS lookups(mac TEXT PRIMARY KEY, name TEXT, varNum INTEGER)")
 
@@ -50,6 +50,10 @@ count=0
 while count < countNum:
 	sniffMe()
 	count=count+1
+
+# Set nulls to zero for nearest neighbour algorithm
+for i in range (1,len(lookupList)+1):
+	curr.execute("UPDATE signals SET AP{0}=0 WHERE AP{0} IS NULL".format(i))
 
 conn.commit()
 curr.close()
