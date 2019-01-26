@@ -1,9 +1,10 @@
 from access_points import *
 import datetime, sqlite3, time
 
-# Set location
-location="room"
+# Set location and sniff number
+location="pwc"
 countNum=5
+count=2
 
 # Create database
 conn=sqlite3.connect('signal_strengths.db')
@@ -46,7 +47,6 @@ def sniffMe():
 	time.sleep(5)
 
 # Repeat sniffer
-count=0
 while count < countNum:
 	sniffMe()
 	count=count+1
