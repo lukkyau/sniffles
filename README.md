@@ -1,2 +1,2 @@
 # sniffles
-Collect data from wifi access points and determine rough location.
+Collect data from wifi access points and determine location using k-nearest neighbour.
